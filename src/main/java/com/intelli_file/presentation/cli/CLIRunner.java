@@ -7,7 +7,7 @@ public class CLIRunner {
 
     public CLIRunner(String[] arguments) {
         this.args = arguments;
-    }   
+    }
 
     public void handleCommand() {
         if (this.args.length < 2) {
@@ -23,7 +23,7 @@ public class CLIRunner {
 
     private void organizeByExtension() {
         if (this.args.length != 3) {
-            System.out.println("Uso: --organize-ext <origin> <destiny>");
+            System.out.println("Uso: --organize-ext <source> <target>");
         }
 
         try {
