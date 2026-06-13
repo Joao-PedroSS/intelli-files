@@ -1,5 +1,7 @@
 package com.intelli_file.presentation.cli;
 
+import javax.management.RuntimeErrorException;
+
 public class CLIRunner {
     private final String[] args;
 
@@ -8,7 +10,26 @@ public class CLIRunner {
     }   
 
     public void handleCommand() {
-        System.out.println("cebolao");
-        System.out.println(this.args[0]);
+        if (this.args.length < 2) {
+            System.out.println("Uso: --[command] <argument>");
+            return;
+        }
+
+        switch (this.args[0]) {
+            case "--organize-ext" -> organizeByExtension();  
+            default -> throw new AssertionError();
+        }
+    }
+
+    private void organizeByExtension() {
+        if (this.args.length != 3) {
+            System.out.println("Uso: --organize-ext <origin> <destiny>");
+        }
+
+        try {
+            throw new RuntimeErrorException(new Error("Função não implementada"));
+        } catch (Exception e) {
+            System.err.println("Erro: " + e.getMessage());
+        }
     }
 }
