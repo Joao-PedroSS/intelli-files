@@ -1,12 +1,14 @@
 package com.intelli_file.presentation.cli;
 
-import javax.management.RuntimeErrorException;
+import com.intelli_file.application.controller.FileController;
 
 public class CLIRunner {
     private final String[] args;
+    private final FileController fileController;
 
     public CLIRunner(String[] arguments) {
         this.args = arguments;
+        this.fileController = new FileController();
     }
 
     public void handleCommand() {
@@ -23,11 +25,11 @@ public class CLIRunner {
 
     private void organizeByExtension() {
         if (this.args.length != 3) {
-            System.out.println("Uso: --organize-ext <source> <target>");
+            throw new RuntimeException("Uso: --organize-ext <source> <target>");
         }
 
         try {
-            throw new RuntimeErrorException(new Error("Função não implementada"));
+            fileController.organizeByExtension(this.args[1], this.args[2]);
         } catch (Exception e) {
             System.err.println("Erro: " + e.getMessage());
         }
