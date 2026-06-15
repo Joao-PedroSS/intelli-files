@@ -13,19 +13,19 @@ public class CLIRunner {
 
     public void handleCommand() {
         if (this.args.length < 2) {
-            System.out.println("Uso: --[command] <argument>");
+            System.out.println("Uso: <command> [argument]");
             return;
         }
 
         switch (this.args[0]) {
-            case "--organize-ext" -> organizeByExtension();  
+            case "organize-ext" -> organizeByExtension();  
             default -> throw new AssertionError();
         }
     }
 
     private void organizeByExtension() {
         if (this.args.length != 3) {
-            throw new RuntimeException("Uso: --organize-ext <source> <target>");
+            throw new RuntimeException("Uso: <organize-ext> [source] [target]");
         }
 
         try {
