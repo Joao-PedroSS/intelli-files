@@ -1,0 +1,19 @@
+# Pastas de compilação do Maven
+target/
+
+# Configurações do VS Code (sua máquina)
+.vscode/
+
+# Configurações do IntelliJ ou Eclipse (caso o João Pedro use outra IDE)
+.idea/
+*.iws
+*.iml
+*.ipr
+.settings/
+.project
+.classpath
+
+# Arquivos compilados genéricos
+*.class
+*.jar
+*.war
