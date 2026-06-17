@@ -19,19 +19,32 @@ public class CLIRunner {
 
         switch (this.args[0]) {
             case "organize-ext" -> organizeByExtension();  
+            case "organize-keyword" -> organizeByKeywords();
             default -> throw new AssertionError();
         }
     }
 
     private void organizeByExtension() {
         if (this.args.length != 3) {
-            throw new RuntimeException("Uso: <organize-ext> [source] [target]");
+            System.out.println("Uso: <organize-ext> [source] [target]");
         }
 
         try {
             fileController.organizeByExtension(this.args[1], this.args[2]);
         } catch (Exception e) {
-            System.err.println("Erro: " + e.getMessage());
+            System.err.println("Ocorreu um erro ao organizar por extensão: " + e.getMessage());
+        }
+    }
+
+    private void organizeByKeywords() {
+        if (this.args.length != 3) {
+            System.out.println("Uso: <organize-ext> [source] [target]");
+        }
+
+        try {
+            fileController.organizeByKeywords(this.args[1], this.args[2]);
+        } catch (Exception e) {
+            System.err.println("Ocorreu um erro ao organizar por palavra-chave: " + e.getMessage());
         }
     }
 }

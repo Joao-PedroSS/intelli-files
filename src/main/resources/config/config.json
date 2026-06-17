@@ -1,14 +1,14 @@
 {
   "Faculdade": {
     "keywords": ["trabalho", "prova", "resumo", "relatorio"],
-    "extensoes": ["pdf", "docx", "pptx"]
+    "extensions": ["pdf", "docx", "pptx"]
   },
   "Comprovantes": {
     "keywords": ["comprovante", "recibo", "pagamento", "boleto"],
-    "extensoes": ["*"]
+    "extensions": ["*"]
   },
   "Imagens_Editadas": {
     "keywords": ["editado", "final", "photoshop"],
-    "extensoes": ["png", "jpg"]
+    "extensions": ["png", "jpg"]
   }
 }

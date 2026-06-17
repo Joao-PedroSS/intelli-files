@@ -12,7 +12,7 @@ public class KeyWordRule {
 
     public static class FolderConfig {
         public List<String> keywords;
-        public List<String> extensoes;
+        public List<String> extensions;
     }
 
     private static Map<String, FolderConfig> KEYWORD_RULES = new HashMap<>();
@@ -25,7 +25,7 @@ public class KeyWordRule {
             if (inputStream != null) {
                 KEYWORD_RULES = mapper.readValue(inputStream, new TypeReference<Map<String, FolderConfig>>() {});
             } else {
-                System.err.println("Aviso: Arquivo /config/config.json não encontrado. Usando regras vazias de fallback.");
+                throw new RuntimeException("Aviso: Arquivo /config/config.json não encontrado. Usando regras vazias de fallback.");
             }
         } catch (Exception e) {
             System.err.println("Erro durante a leitura do arquivo de configuração (config.json): " + e.getMessage());
@@ -40,7 +40,7 @@ public class KeyWordRule {
             String folderName = entry.getKey();
             FolderConfig config = entry.getValue();
 
-            boolean isExtensionValid = config.extensoes.contains("*") || config.extensoes.contains(lowerExt);
+            boolean isExtensionValid = config.extensions.contains("*") || config.extensions.contains(lowerExt);
 
             if (!isExtensionValid) {
                 continue; 
