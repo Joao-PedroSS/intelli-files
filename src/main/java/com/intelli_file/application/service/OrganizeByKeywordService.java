@@ -13,14 +13,24 @@ import java.util.Map;
 
 public class OrganizeByKeywordService {
     
-    private final FileScanner scanner = new FileScanner();
-    private final FileMover mover = new FileMover();
+    private final FileScanner scanner;
+    private final FileMover mover;
+    private final ConfigRepository repository;
+
+    public OrganizeByKeywordService() {
+        this(new FileScanner(), new FileMover(), new ConfigRepository());
+    }
+
+    public OrganizeByKeywordService(FileScanner scanner, FileMover mover, ConfigRepository repository) {
+        this.scanner = scanner;
+        this.mover = mover;
+        this.repository = repository;
+    }
 
     public void execute(Path sourcePath, Path targetPath) throws IOException {
         List<Path> files = scanner.scan(sourcePath);
 
         // 1. O Repositório carrega as regras físicas (do arquivo JSON) para a memória do Java
-        ConfigRepository repository = new ConfigRepository();
         Map<String, KeyWordRule.FolderConfig> regras = repository.loadKeywordRules();
 
         // 2. A nossa Regra de Domínio purificada é instanciada recebendo esses dados prontos

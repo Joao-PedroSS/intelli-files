@@ -31,6 +31,7 @@ public class CLIRunner {
     private void organizeByExtension() {
         if (this.args.length != 3) {
             System.out.println("Uso: <organize-ext> [source] [target]");
+            return;
         }
 
         try {
@@ -43,6 +44,7 @@ public class CLIRunner {
     private void organizeByKeywords() {
         if (this.args.length != 3) {
             System.out.println("Uso: <organize-ext> [source] [target]");
+            return;
         }
 
         try {
