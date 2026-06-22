@@ -7,6 +7,8 @@ import com.intelli_file.application.service.SmartOrganizeService;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Map;
 
 public class FileController {
     
@@ -62,6 +64,30 @@ public class FileController {
             System.out.println("Sucesso: Palavra-chave '" + keyword + "' removida da pasta '" + folder + "'.");
         } catch (Exception e) {
             System.err.println("Erro ao remover palavra-chave: " + e.getMessage());
+        }
+    }
+
+    // --- NOVOS MÉTODOS PARA O MENU ---
+
+    public Map<String, List<String>> getFoldersAndKeywords() {
+        return new ManageKeywordService().getExistingFolders();
+    }
+
+    public void addFolderConfig(String folder) {
+        try {
+            new ManageKeywordService().addFolder(folder);
+            System.out.println("Sucesso: Pasta '" + folder + "' adicionada ao sistema.");
+        } catch (Exception e) {
+            System.err.println("Erro: " + e.getMessage());
+        }
+    }
+
+    public void removeFolderConfig(String folder) {
+        try {
+            new ManageKeywordService().removeFolder(folder);
+            System.out.println("Sucesso: Pasta '" + folder + "' removida do sistema.");
+        } catch (Exception e) {
+            System.err.println("Erro: " + e.getMessage());
         }
     }
 }
