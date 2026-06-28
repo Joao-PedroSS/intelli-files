@@ -10,7 +10,7 @@ public class CLIRunner {
     private final Scanner scanner;
 
     public CLIRunner() {
-        this.controller = new FileController();
+        this.controller = new FileController(); 
         this.scanner = new Scanner(System.in);
     }
 

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.intelli_file.presentation.gui.SettingsController"
+      styleClass="root" spacing="25.0">
+    
+    <padding>
+        <Insets bottom="30.0" left="40.0" right="40.0" top="30.0"/>
+    </padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="30.0">
+        <Button text="Voltar para o Início" onAction="#voltarParaInicio" styleClass="btn-secondary">
+            <padding>
+                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0"/>
+            </padding>
+        </Button>
+        <Label text="Gerenciador de Regras e Pastas" styleClass="text-title"/>
+    </HBox>
+
+    <Label fx:id="labelStatus" text="" style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
+
+    <HBox spacing="30.0" VBox.vgrow="ALWAYS">
+        
+        <VBox spacing="15.0" prefWidth="250.0" styleClass="panel-container">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+            </padding>
+            <Label text="O que deseja gerenciar?" styleClass="text-subtitle" style="-fx-font-weight: bold;"/>
+            
+            <Button fx:id="btnMenuPastas" text="Alterar Pastas" onAction="#mostrarMenuPastas" prefWidth="Infinity" styleClass="btn-menu-active"/>
+            <Button fx:id="btnMenuPalavras" text="Alterar Palavras-chave" onAction="#mostrarMenuPalavras" prefWidth="Infinity" styleClass="btn-menu"/>
+        </VBox>
+
+        <StackPane HBox.hgrow="ALWAYS" styleClass="panel-container">
+            <padding>
+                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/>
+            </padding>
+            
+            <VBox fx:id="painelPastas" spacing="20.0" alignment="CENTER_LEFT">
+                <Label text="Adicionar ou Remover Pastas" styleClass="text-section"/>
+                <TextField fx:id="campoNomePasta" promptText="Nome da Pasta (ex: Faculdade)" styleClass="text-input"/>
+                <HBox spacing="15.0">
+                    <Button text="Adicionar Pasta" onAction="#adicionarPasta" styleClass="btn-success">
+                        <padding><Insets bottom="12.0" left="24.0" right="24.0" top="12.0"/></padding>
+                    </Button>
+                    <Button text="Remover Pasta" onAction="#removerPasta" styleClass="btn-danger">
+                        <padding><Insets bottom="12.0" left="24.0" right="24.0" top="12.0"/></padding>
+                    </Button>
+                </HBox>
+            </VBox>
+
+            <VBox fx:id="painelPalavras" spacing="20.0" alignment="CENTER_LEFT" visible="false">
+                <Label text="Adicionar ou Remover Palavras-chave" styleClass="text-section"/>
+                <TextField fx:id="campoPastaAlvo" promptText="Em qual Pasta? (ex: Faculdade)" styleClass="text-input"/>
+                <TextField fx:id="campoNovaKeyword" promptText="Palavra-chave (ex: tcc)" styleClass="text-input"/>
+                <HBox spacing="15.0">
+                    <Button text="Adicionar Palavra" onAction="#adicionarKeyword" styleClass="btn-success">
+                        <padding><Insets bottom="12.0" left="24.0" right="24.0" top="12.0"/></padding>
+                    </Button>
+                    <Button text="Remover Palavra" onAction="#removerKeyword" styleClass="btn-danger">
+                        <padding><Insets bottom="12.0" left="24.0" right="24.0" top="12.0"/></padding>
+                    </Button>
+                </HBox>
+            </VBox>
+        </StackPane>
+    </HBox>
+
+    <VBox VBox.vgrow="ALWAYS" spacing="10.0">
+        <Label text="Visão Geral do Sistema:" styleClass="text-subtitle" style="-fx-font-weight: bold;"/>
+        <ListView fx:id="listaRegrasConfig" VBox.vgrow="ALWAYS" styleClass="list-view"/>
+    </VBox>
+
+</VBox>
