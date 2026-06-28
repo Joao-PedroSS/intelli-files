@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
+import com.intelli_file.domain.model.FileItem;
 import com.intelli_file.domain.model.PredictionResult;
 import com.intelli_file.infrastructure.aisystem.FastTextProcessManager;
 import com.intelli_file.infrastructure.filesystem.FileMover;
@@ -18,15 +19,23 @@ public class OrganizeByMLService {
         FastTextProcessManager ffManager = new FastTextProcessManager(); 
 
         for (Path path : files) {
-            try {
-                PredictionResult result = ffManager.classifyFile(path);
+            FileItem file = new FileItem(path);
+            if (file.getExtension().equals("txt")) { 
+                try {
+                    PredictionResult result = ffManager.classifyFile(path);
 
-                Path finalDir = targetPath.resolve(result.getLabel());
-                System.out.println(result.toString());
-                mover.move(path, finalDir);
-            } catch (IOException | InterruptedException e) {
-                throw new IOException(e.getMessage());
+                    Path finalDir = targetPath.resolve(result.getLabel());
+                    System.out.println(result.toString());
+                    mover.move(path, finalDir);
+                    continue;
+                } catch (IOException | InterruptedException e) {
+                    throw new IOException(e.getMessage());
+                }
             }
+
+            Path finalDir = targetPath.resolve("Outros");
+            System.out.println("Outros (1.0)");
+            mover.move(path, finalDir);
         }
     }
 }

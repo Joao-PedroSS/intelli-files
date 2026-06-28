@@ -53,16 +53,18 @@ public class SmartOrganizeService {
                 continue;
             }
 
-            try {
-                PredictionResult prediction = new FastTextProcessManager().classifyFile(path);   
-                if (prediction.getProbability() > 0.5) {
-                    folder = prediction.getLabel();
-                    Path finalDir = targetPath.resolve(folder);
-                    mover.move(path, finalDir);
-                    continue;
+            if (extension.equals("txt")) {
+                try {
+                    PredictionResult prediction = new FastTextProcessManager().classifyFile(path);   
+                    if (prediction.getProbability() > 0.5) {
+                        folder = prediction.getLabel();
+                        Path finalDir = targetPath.resolve(folder);
+                        mover.move(path, finalDir);
+                        continue;
+                    }
+                } catch (Exception e) {
+                    throw new IOException(e.getMessage());
                 }
-            } catch (Exception e) {
-                throw new IOException(e.getMessage());
             }
 
             folder = ExtensionsRule.resolveFolder(extension);
