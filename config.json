@@ -1,0 +1,22 @@
+{
+  "Financas" : {
+    "keywords" : [ "boleto", "comprovante", "fatura", "recibo", "nubank", "pix" ],
+    "extensions" : [ "*" ]
+  },
+  "Estudo" : {
+    "keywords" : [ "tcc", "resumo", "prova", "trabalho", "slide", "aula", "exercicio", "computacao", "faculdade" ],
+    "extensions" : [ "*" ]
+  },
+  "Esportes" : {
+    "keywords" : [ "volei", "campeonato", "treino", "tabela", "torneio" ],
+    "extensions" : [ "*" ]
+  },
+  "Documentos_Pessoais" : {
+    "keywords" : [ "rg", "cnh", "cpf", "passaporte", "contrato", "curriculo" ],
+    "extensions" : [ "*" ]
+  },
+  "Projetos" : {
+    "keywords" : [ "programacao", "atividades" ],
+    "extensions" : [ "*" ]
+  }
+}
