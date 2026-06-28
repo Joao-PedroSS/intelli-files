@@ -1,14 +1,15 @@
 package com.intelli_file.application.controller;
 
-import com.intelli_file.application.service.ManageKeywordService;
-import com.intelli_file.application.service.OrganizeByExtensionService;
-import com.intelli_file.application.service.OrganizeByKeywordService;
-import com.intelli_file.application.service.SmartOrganizeService;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
+
+import com.intelli_file.application.service.ManageKeywordService;
+import com.intelli_file.application.service.OrganizeByExtensionService;
+import com.intelli_file.application.service.OrganizeByKeywordService;
+import com.intelli_file.application.service.OrganizeByMLService;
+import com.intelli_file.application.service.SmartOrganizeService;
 
 public class FileController {
     
@@ -29,6 +30,17 @@ public class FileController {
 
         try {
             new OrganizeByKeywordService().execute(sourcePath, targetPath);
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    public void organizeByMachineLearning(String source, String target) throws RuntimeException {
+        Path sourcePath = Path.of(source);
+        Path targetPath = Path.of(target);
+
+        try {
+            new OrganizeByMLService().execute(sourcePath, targetPath);
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }

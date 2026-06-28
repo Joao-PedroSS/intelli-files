@@ -1,9 +1,10 @@
 package com.intelli_file.presentation.cli;
 
-import com.intelli_file.application.controller.FileController;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+
+import com.intelli_file.application.controller.FileController;
 
 public class CLIRunner {
     private final FileController controller;
@@ -25,6 +26,7 @@ public class CLIRunner {
             System.out.println("1. Organização Inteligente (Cascata)");
             System.out.println("2. Organizar por Palavra-chave");
             System.out.println("3. Organizar por Extensão");
+            System.out.println("4. Organizar por machine learning");
             System.out.println("\n--- GESTÃO DE REGRAS ---");
             System.out.println("4. Ver Pastas e Palavras-chave atuais");
             System.out.println("5. Adicionar nova Pasta");
@@ -41,11 +43,12 @@ public class CLIRunner {
                 case "1" -> organizarSmart();
                 case "2" -> organizarKeywords();
                 case "3" -> organizarExtensao();
-                case "4" -> mostrarRegrasAtuais();
-                case "5" -> adicionarPasta();
-                case "6" -> removerPasta();
-                case "7" -> adicionarKeyword();
-                case "8" -> removerKeyword();
+                case "4" -> organizarMachineLearning();
+                case "5" -> mostrarRegrasAtuais();
+                case "6" -> adicionarPasta();
+                case "7" -> removerPasta();
+                case "8" -> adicionarKeyword();
+                case "9" -> removerKeyword();
                 case "0" -> {
                     System.out.println("Encerrando o IntelliFiles. Até logo!");
                     rodando = false;
@@ -98,6 +101,19 @@ public class CLIRunner {
         if (destino == null) return;
 
         controller.organizeByExtension(origem, destino);
+        System.out.println("-> Organização concluída com sucesso!");
+    }
+
+    private void organizarMachineLearning() {
+        System.out.println("Abra a janela que pipocou e selecione a pasta de ORIGEM...");
+        String origem = FolderChooser.selecionarPasta("Intelli-File: Selecione a pasta de ORIGEM");
+        if (origem == null) return;
+
+        System.out.println("Abra a janela que pipocou e selecione a pasta de DESTINO...");
+        String destino = FolderChooser.selecionarPasta("Intelli-File: Selecione a pasta de DESTINO");
+        if (destino == null) return;
+
+        controller.organizeByMachineLearning(origem, origem);
         System.out.println("-> Organização concluída com sucesso!");
     }
 

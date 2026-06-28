@@ -1,10 +1,10 @@
 {
-  "jpg": "images",
-  "png": "images",
-  "gif": "images",
-  "mp4": "videos",
-  "mkv": "videos",
-  "pdf": "documents",
-  "docx": "documents",
-  "txt": "documents"
+  "jpg": "Imagens",
+  "png": "Imagens",
+  "gif": "Imagens",
+  "mp4": "Videos",
+  "mkv": "Videos",
+  "pdf": "Documentos",
+  "docx": "Documentos",
+  "txt": "Documentos"
 }

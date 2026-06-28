@@ -3,7 +3,7 @@
     "keywords": ["boleto", "comprovante", "fatura", "recibo", "nubank", "pix"],
     "extensions": ["pdf", "png", "jpg", "jpeg"]
   },
-  "Faculdade": {
+  "Estudo": {
     "keywords": ["tcc", "resumo", "prova", "trabalho", "slide", "aula", "exercicio", "computacao"],
     "extensions": ["pdf", "docx", "doc", "pptx", "txt", "xlsx"]
   },

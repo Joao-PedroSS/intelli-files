@@ -1,16 +1,18 @@
 package com.intelli_file.application.service;
 
-import com.intelli_file.domain.model.FileItem;
-import com.intelli_file.domain.rule.ExtensionsRule;
-import com.intelli_file.domain.rule.KeyWordRule;
-import com.intelli_file.infrastructure.config.ConfigRepository;
-import com.intelli_file.infrastructure.filesystem.FileMover;
-import com.intelli_file.infrastructure.filesystem.FileScanner;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
+
+import com.intelli_file.domain.model.FileItem;
+import com.intelli_file.domain.model.PredictionResult;
+import com.intelli_file.domain.rule.ExtensionsRule;
+import com.intelli_file.domain.rule.KeyWordRule;
+import com.intelli_file.infrastructure.aisystem.FastTextProcessManager;
+import com.intelli_file.infrastructure.config.ConfigRepository;
+import com.intelli_file.infrastructure.filesystem.FileMover;
+import com.intelli_file.infrastructure.filesystem.FileScanner;
 
 public class SmartOrganizeService {
 
@@ -45,10 +47,27 @@ public class SmartOrganizeService {
             // 3. A regra decide para onde vai (agora chamando pelo objeto instanciado, não pela classe)
             String folder = keywordRule.resolveFolder(fileName, extension);
 
-            if (folder.equals("others")) {
-                folder = ExtensionsRule.resolveFolder(extension);
+            if (!folder.equals("others")) {
+                Path finalDir = targetPath.resolve(folder);
+                mover.move(path, finalDir);
+                continue;
             }
 
+            if (extension.equals("txt")) {
+                try {
+                    PredictionResult prediction = new FastTextProcessManager().classifyFile(path);   
+                    if (prediction.getProbability() > 0.5) {
+                        folder = prediction.getLabel();
+                        Path finalDir = targetPath.resolve(folder);
+                        mover.move(path, finalDir);
+                        continue;
+                    }
+                } catch (Exception e) {
+                    throw new IOException(e.getMessage());
+                }
+            }
+
+            folder = ExtensionsRule.resolveFolder(extension);
             Path finalDir = targetPath.resolve(folder);
             mover.move(path, finalDir);
         }
