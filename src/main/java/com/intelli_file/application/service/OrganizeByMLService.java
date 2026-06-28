@@ -21,12 +21,9 @@ public class OrganizeByMLService {
             try {
                 PredictionResult result = ffManager.classifyFile(path);
 
-                // AUMENTAR ISSO
-                if (result.getProbability() > 0.0) {
-                    Path finalDir = targetPath.resolve(result.getLabel());
-                    System.out.println(result.toString());
-                    mover.move(path, finalDir);
-                }
+                Path finalDir = targetPath.resolve(result.getLabel());
+                System.out.println(result.toString());
+                mover.move(path, finalDir);
             } catch (IOException | InterruptedException e) {
                 throw new IOException(e.getMessage());
             }
