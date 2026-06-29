@@ -2,8 +2,6 @@ package com.intelli_file.presentation.gui;
 
 import com.intelli_file.application.controller.FileController;
 import javafx.animation.PauseTransition;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -45,26 +43,12 @@ public class SettingsController {
 
     @FXML
     public void initialize() {
-        configurarAparenciaDaLista();
+        configurarAparenciaDaLista(); // estava faltando esta linha
         carregarRegrasNaListaVisual();
-        mostrarMenuPastas(); 
-        
-        listaRegrasConfig.setSelectionModel(new javafx.scene.control.MultipleSelectionModel<>() {
-            @Override public ObservableList<Integer> getSelectedIndices() { return FXCollections.emptyObservableList(); }
-            @Override public ObservableList<Map.Entry<String, List<String>>> getSelectedItems() { return FXCollections.emptyObservableList(); }
-            @Override public void selectIndices(int i, int... ints) {}
-            @Override public void selectAll() {}
-            @Override public void selectFirst() {}
-            @Override public void selectLast() {}
-            @Override public void clearAndSelect(int i) {}
-            @Override public void select(int i) {}
-            @Override public void select(Map.Entry<String, List<String>> obj) {}
-            @Override public void clearSelection(int i) {}
-            @Override public void clearSelection() {}
-            @Override public boolean isSelected(int i) { return false; }
-            @Override public boolean isEmpty() { return true; }
-            @Override public void selectPrevious() {}
-            @Override public void selectNext() {}
+        mostrarMenuPastas();
+
+        listaRegrasConfig.getSelectionModel().selectedItemProperty().addListener((obs, antigo, novo) -> {
+            if (novo != null) listaRegrasConfig.getSelectionModel().clearSelection();
         });
     }
 
@@ -137,13 +121,12 @@ public class SettingsController {
     }
 
     private void carregarRegrasNaListaVisual() {
-        // Limpa a lista visual
-        if (listaRegrasConfig != null) { // Use listaRegras no MainController
-            listaRegrasConfig.getItems().clear();
-            Map<String, List<String>> pastas = controller.getFoldersAndKeywords();
-            
-            // Adiciona os objetos puros, o CellFactory cuida do visual!
-            listaRegrasConfig.getItems().addAll(pastas.entrySet());
+        listaRegrasConfig.getItems().clear();
+        Map<String, List<String>> pastas = controller.getFoldersAndKeywords();
+
+        // Em vez de String, adiciona o Map.Entry diretamente — bate com ListView<Map.Entry<...>>
+        for (Map.Entry<String, List<String>> entry : pastas.entrySet()) {
+            listaRegrasConfig.getItems().add(entry);
         }
     }
 

@@ -1,9 +1,6 @@
 package com.intelli_file.presentation.gui;
 
 import com.intelli_file.application.controller.FileController;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Alert;
 import javafx.scene.layout.HBox;
 import javafx.geometry.Pos;
 import javafx.stage.DirectoryChooser;
@@ -35,22 +31,10 @@ public class MainController {
         configurarAparenciaDaLista();
         carregarRegrasNaListaVisual();
 
-        listaRegras.setSelectionModel(new javafx.scene.control.MultipleSelectionModel<>() {
-            @Override public ObservableList<Integer> getSelectedIndices() { return FXCollections.emptyObservableList(); }
-            @Override public ObservableList<Map.Entry<String, List<String>>> getSelectedItems() { return FXCollections.emptyObservableList(); }
-            @Override public void selectIndices(int i, int... ints) {}
-            @Override public void selectAll() {}
-            @Override public void selectFirst() {}
-            @Override public void selectLast() {}
-            @Override public void clearAndSelect(int i) {}
-            @Override public void select(int i) {}
-            @Override public void select(Map.Entry<String, List<String>> obj) {}
-            @Override public void clearSelection(int i) {}
-            @Override public void clearSelection() {}
-            @Override public boolean isSelected(int i) { return false; }
-            @Override public boolean isEmpty() { return true; }
-            @Override public void selectPrevious() {}
-            @Override public void selectNext() {}
+        listaRegras.getSelectionModel().selectedItemProperty().addListener((obs, antigo, novo) -> {
+            if (novo != null) {
+                listaRegras.getSelectionModel().clearSelection();
+            }
         });
     }
 
@@ -98,19 +82,18 @@ public class MainController {
         });
     }
 
-   private void carregarRegrasNaListaVisual() {
-        if (listaRegras != null) {
-            listaRegras.getItems().clear();
-            Map<String, List<String>> pastas = controller.getFoldersAndKeywords();
-            listaRegras.getItems().addAll(pastas.entrySet());
-        }
+    private void carregarRegrasNaListaVisual() {
+        listaRegras.getItems().clear();
+        Map<String, List<String>> pastas = controller.getFoldersAndKeywords();
+        // Adicionamos os objetos diretamente na lista
+        listaRegras.getItems().addAll(pastas.entrySet());
     }
 
-   @FXML
+    @FXML
     public void organizarArquivos(ActionEvent event) {
         Stage janelaAtual = (Stage) ((Node) event.getSource()).getScene().getWindow();
         DirectoryChooser seletor = new DirectoryChooser();
-
+        
         seletor.setTitle("IntelliFiles: Selecione a pasta de ORIGEM");
         File pastaOrigem = seletor.showDialog(janelaAtual);
         if (pastaOrigem == null) return;
@@ -119,23 +102,7 @@ public class MainController {
         File pastaDestino = seletor.showDialog(janelaAtual);
         if (pastaDestino == null) return;
 
-        try {
-            controller.organizeSmart(pastaOrigem.getAbsolutePath(), pastaDestino.getAbsolutePath());
-
-            Alert alertaSucesso = new Alert(Alert.AlertType.INFORMATION);
-            alertaSucesso.setTitle("Operação Concluída");
-            alertaSucesso.setHeaderText(null);
-            alertaSucesso.setContentText("A organização dos arquivos foi finalizada com sucesso!");
-            alertaSucesso.showAndWait();
-
-        } catch (RuntimeException e) {
-            Alert alertaErro = new Alert(Alert.AlertType.ERROR);
-            alertaErro.setTitle("Erro na Organização");
-            alertaErro.setHeaderText("Não foi possível organizar os arquivos.");
-            alertaErro.setContentText(e.getMessage());
-            alertaErro.showAndWait();
-            e.printStackTrace();
-        }
+        controller.organizeSmart(pastaOrigem.getAbsolutePath(), pastaDestino.getAbsolutePath());
     }
 
     @FXML
