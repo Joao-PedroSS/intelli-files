@@ -1,18 +1,34 @@
 {
-  "Financas": {
-    "keywords": ["boleto", "comprovante", "fatura", "recibo", "nubank", "pix"],
-    "extensions": ["pdf", "png", "jpg", "jpeg"]
+  "Financas" : {
+    "keywords" : [ "boleto", "comprovante", "fatura", "recibo", "nubank", "pix", "extrato", "imposto", "irpf", "declaracao", "pagamento", "transferencia", "cartao", "nota_fiscal", "nfe", "danfe", "tributario", "financeiro", "investimento", "divida", "emprestimo", "mei", "cnpj" ],
+    "extensions" : [ "*" ]
   },
-  "Estudo": {
-    "keywords": ["tcc", "resumo", "prova", "trabalho", "slide", "aula", "exercicio", "computacao"],
-    "extensions": ["pdf", "docx", "doc", "pptx", "txt", "xlsx"]
+  "Estudo" : {
+    "keywords" : [ "tcc", "resumo", "prova", "trabalho", "slide", "aula", "exercicio", "computacao", "monografia", "artigo", "referencia", "pesquisa", "universidade", "faculdade", "vestibular", "enem", "apostila", "materia", "disciplina", "semestre", "laboratorio", "relatorio", "metodologia", "educacao" ],
+    "extensions" : [ "*" ]
   },
-  "Esportes": {
-    "keywords": ["volei", "campeonato", "treino", "tabela", "torneio"],
-    "extensions": ["pdf", "jpg", "png", "xlsx"]
+  "Esportes" : {
+    "keywords" : [ "volei", "campeonato", "treino", "tabela", "torneio", "futebol", "basquete", "natacao", "corrida", "academia", "jogo", "partida", "placar", "escalacao", "treinamento", "atletismo", "competicao", "classificacao", "planilha treino" ],
+    "extensions" : [ "*" ]
   },
-  "Documentos_Pessoais": {
-    "keywords": ["rg", "cnh", "cpf", "passaporte", "contrato", "curriculo"],
-    "extensions": ["pdf", "jpg", "png"]
+  "Documentos_Pessoais" : {
+    "keywords" : [ "rg", "cnh", "cpf", "passaporte", "contrato", "curriculo", "certidao", "nascimento", "casamento", "titulo_eleitor", "diploma", "historico", "laudo", "atestado", "procuracao", "escritura", "comprovante_residencia", "seguro", "sus", "plano_saude", "inss" ],
+    "extensions" : [ "*" ]
+  },
+  "Projetos" : {
+    "keywords" : [ "programacao", "desenvolvimento", "codigo", "projeto", "sistema", "backend", "frontend", "api", "banco_dados", "deploy", "github", "readme", "script", "teste", "documentacao", "arquitetura", "sprint", "backlog", "versao", "release", "bug", "feature", "devops", "mobile", "web" ],
+    "extensions" : [ "*" ]
+  },
+  "Imagens_e_Fotos" : {
+    "keywords" : [ "foto", "fotografia", "album", "retrato", "evento", "viagem", "familia", "aniversario", "casamento", "formatura", "perfil", "logo", "banner", "design", "arte", "wallpaper", "screenshot" ],
+    "extensions" : [ "*" ]
+  },
+  "Videos" : {
+    "keywords" : [ "video", "filmagem", "edicao", "vlog", "tutorial", "entrevista", "apresentacao", "gravacao", "clipe", "documentario", "render", "montagem" ],
+    "extensions" : [ "*" ]
+  },
+  "Musica_e_Audio" : {
+    "keywords" : [ "musica", "audio", "podcast", "faixa", "album", "playlist", "gravacao", "mixagem", "masterizacao", "instrumental", "letra", "partitura", "som", "voz" ],
+    "extensions" : [ "*" ]
   }
 }

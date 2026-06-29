@@ -7,6 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -102,7 +104,23 @@ public class MainController {
         File pastaDestino = seletor.showDialog(janelaAtual);
         if (pastaDestino == null) return;
 
-        controller.organizeSmart(pastaOrigem.getAbsolutePath(), pastaDestino.getAbsolutePath());
+        // O "Pulo do Gato": Vamos capturar qualquer erro que ocorra no processamento
+        try {
+            // Supondo que organizeSmart() retorne void ou lance exceção em caso de erro
+            controller.organizeSmart(pastaOrigem.getAbsolutePath(), pastaDestino.getAbsolutePath());
+            
+            // Se chegou aqui sem erro, deu tudo certo!
+            mostrarFeedback("Processo Concluído", 
+                            "Arquivos organizados com sucesso na pasta de destino!", 
+                            AlertType.INFORMATION);
+                            
+        } catch (Exception e) {
+            // Se qualquer coisa falhar (acesso negado, disco cheio, erro no JSON), o usuário será avisado
+            mostrarFeedback("Erro no Processamento", 
+                            "Não foi possível organizar os arquivos:\n" + e.getMessage(), 
+                            AlertType.ERROR);
+            e.printStackTrace(); // Loga o erro no terminal para você debugar
+        }
     }
 
     @FXML
@@ -116,5 +134,13 @@ public class MainController {
             System.err.println("Erro ao mudar para a tela de configurações: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    private void mostrarFeedback(String titulo, String mensagem, AlertType tipo) {
+        Alert alerta = new Alert(tipo);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null); // Remove o cabeçalho padrão para ficar mais limpo
+        alerta.setContentText(mensagem);
+        alerta.showAndWait();
     }
 }
